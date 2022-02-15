@@ -56,10 +56,15 @@ class KatalogController extends Controller
         $image  = $request->file('gambar_barang');
         $result = CloudinaryStorage::replace($barang->gambar_barang, $image->getRealPath(), $image->getClientOriginalName());
 
-        $barang->gambar_barang = $result;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->save();
+        $barang->update([
+            'gambar_barang' =>$result,
+            'nama_barang' =>$request->nama_barang,
+            'harga_barang' =>$request->harga_barang,
+        ]);
+        // $barang->gambar_barang = $result;
+        // $barang->nama_barang = $request->nama_barang;
+        // $barang->harga_barang = $request->harga_barang;
+        // $barang->save();
 
         return response()->json($barang,200);
     }
