@@ -34,14 +34,14 @@ class UserController extends BaseController
     }
 
     public function register(Request $request) {
-        $validator= Validator::make($request->all(), [
+        $validator= Validator::make($request->all(),[
             'name' => 'required|string',
-            'email' => 'required|email',
+            'email' => 'required|email|string|unique:users',
             'password' => 'required|confirmed',
             'roles' => 'required'
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return $this->responseError('Please Fill All Required Fields', 422, $validator->errors());
         }
 
@@ -52,7 +52,7 @@ class UserController extends BaseController
             'roles' => $request->roles,
         ];
 
-        if($user = User::create($params)) {
+        if ($user = User::create($params)) {
             $token = $user->createToken('authToken')->plainTextToken;
 
             $response = [
