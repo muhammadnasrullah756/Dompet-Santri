@@ -27,5 +27,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('home',[KatalogController::class,'home']);
 Route::post('store',[KatalogController::class,'store']);
 Route::get('barang/{id}',[KatalogController::class,'show_one']);
-Route::put('edit/{id}',[KatalogController::class],'edit');
-Route::delete('delete_barang/{id}',[KatalogController::class],'delete');
+Route::put('edit/{id}',[KatalogController::class,'edit']);
+Route::delete('delete_barang/{id}',[KatalogController::class,'delete']);
