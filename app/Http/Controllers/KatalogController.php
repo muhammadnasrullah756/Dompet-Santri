@@ -45,7 +45,7 @@ class KatalogController extends Controller
 
     public function edit ($id,request $request)
     {
-        $barang = katalog::find ($id);
+        $barang = katalog::find($id);
 
         $request->validate([
             'gambar_barang' => 'required|mimes:png,jpg,jpeg|max:2048',
