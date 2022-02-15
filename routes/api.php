@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\KatalogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,11 @@ Route::middleware('auth:sanctum')->post('logout', 'UserController@logout');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// CRUD katalog
+
+Route::get('home',[KatalogController::class,'home']);
+Route::post('store',[KatalogController::class,'store']);
+Route::get('barang/{id}',[KatalogController::class],'show_one');
+Route::put('edit/{id}',[KatalogController::class],'edit');
+Route::delete('delete_barang/{id}',[KatalogController::class],'delete');
