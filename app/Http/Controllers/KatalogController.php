@@ -72,7 +72,7 @@ class KatalogController extends Controller
     public function delete ($id) {
         $barang = katalog::find($id);
         CloudinaryStorage::delete($barang->gambar_barang);
-        $barang->delete();
+        $barang->destroy($id);
 
         return response()->json([
             "status" => "katalog barang telah dihapus"
