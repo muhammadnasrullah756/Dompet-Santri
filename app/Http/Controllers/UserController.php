@@ -66,4 +66,14 @@ class UserController extends BaseController
             return $this->responseError('Registration Failed', 400);
         }
     }
+    public function logout(Request $request)
+    {
+        // $user = $request->user()->tokens();
+        // $user->delete();
+        $request->user()->currentAccessToken()->delete();
+        // $user->tokens()->where('id', $id)->delete();
+        return response()->json([
+            'message' => 'Successfully Logged Out'
+        ]);
+    }
 }
