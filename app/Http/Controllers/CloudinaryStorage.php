@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CloudinaryStorage extends Controller
 {
-    private const folder_path = 'tutorial';
+    private const folder_path = 'MP2';
 
     public static function path($path){
         return pathinfo($path, PATHINFO_FILENAME);
