@@ -29,7 +29,7 @@ class SaldoController extends BaseController
 
         if($saldo = Saldo::create($params)) {
             $response = ['saldo' => $saldo];
-            return $this->response($response);
+            return $this->responseOk($response);
         } else {
             return $this->responseError('Fill in Balance Error,400');
         }
