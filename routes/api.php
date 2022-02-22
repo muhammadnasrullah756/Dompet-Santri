@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\BalanceController;
+use App\Http\Controllers\TransaksiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,10 @@ Route::get('barang/{id}',[KatalogController::class,'show_one']);
 Route::put('edit/{id}',[KatalogController::class,'edit']);
 Route::delete('delete_barang/{id}',[KatalogController::class,'delete']);
 
-// Checkout dsb
+// Checkout, transaksi
+
+Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
+Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
+Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
 // Route::post('tambahkan_barang',[]);
