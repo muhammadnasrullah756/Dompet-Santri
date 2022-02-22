@@ -24,6 +24,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+// Isi Saldo
+
+Route::post('isi', 'SaldoController@addSaldo');
+
 // Tarik dana
 
 Route::get('ke_tarik_dana',[BalanceController::class,'show_withdrawal']);
