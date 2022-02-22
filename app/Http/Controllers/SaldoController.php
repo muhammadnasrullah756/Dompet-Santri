@@ -24,7 +24,7 @@ class SaldoController extends BaseController
         $params = [
             'nominal' => $request->nominal,
             'pict' => $result,
-            'transaksi' => 'Waiting'
+            'status' => 'Waiting'
         ];
 
         if($saldo = Saldo::create($params)) {
