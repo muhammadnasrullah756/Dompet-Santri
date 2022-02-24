@@ -76,4 +76,14 @@ class UserController extends BaseController
             'message' => 'Successfully Logged Out'
         ]);
     }
+
+    public function get_data_merchant (request $request)
+    {
+        $user = $request->user();
+
+        return response()->json([
+            "user" => $user
+        ],200);
+        
+    }
 }

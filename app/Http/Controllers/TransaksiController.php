@@ -46,7 +46,18 @@ class TransaksiController extends Controller
             'status' => 'success',
             'data' =>$transaksi
         ],200);
+    }
 
-        
+    public function get_transaksi_data(){
+        $trasaksi = transaksi::all();
+
+        return response()->json(['data' => $trasaksi],200);
+    }
+
+    public function show_transaksi($id)
+    {
+        $data = transaksi::find($id);
+
+        return response()->json(['data' => $data],200);
     }
 }
