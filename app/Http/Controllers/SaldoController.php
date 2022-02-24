@@ -35,9 +35,8 @@ class SaldoController extends BaseController
         }
     }
 
-    public function TransferBalance(Request $request) {
-        $validator = Validator::make($request->all(), [
-
-        ]);
+    public function showall() {
+        $data = Saldo::all();
+        return $this->responseOk($data);
     }
 }
