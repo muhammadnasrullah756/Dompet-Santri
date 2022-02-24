@@ -34,4 +34,10 @@ class SaldoController extends BaseController
             return $this->responseError('Fill in Balance Error,400');
         }
     }
+
+    public function TransferBalance(Request $request) {
+        $validator = Validator::make($request->all(), [
+
+        ]);
+    }
 }
