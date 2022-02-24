@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Isi Saldo
 
-Route::get('pengajuan', 'SaldoController@showall');
+Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
 Route::middleware('auth:sanctum')->post('isi', 'SaldoController@addSaldo');
 
 // Tarik dana
