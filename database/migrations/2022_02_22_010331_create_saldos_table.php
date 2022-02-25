@@ -16,7 +16,7 @@ class CreateSaldosTable extends Migration
         Schema::create('saldos', function (Blueprint $table) {
             $table->id();
             $table->integer('nominal');
-            // $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->bigInteger('type_id')->nullable();
             $table->string('pict');
             $table->enum('status',['Waiting','Success','Cancelled']);

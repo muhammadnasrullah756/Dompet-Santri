@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Saldo;
 Use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class SaldoController extends BaseController
 {
@@ -36,7 +37,7 @@ class SaldoController extends BaseController
     }
 
     public function showall() {
-        $data = Saldo::all();
+        $data = Saldo::where('user_id', Auth::id())->get();
         return $this->responseOk($data);
     }
 }
