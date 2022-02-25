@@ -46,4 +46,9 @@ class SaldoController extends BaseController
         $data = Saldo::find($id);
         return $this->responseOk($data);
     }
+
+    public function historydashboard() {
+        $data = Saldo::where('user_id', Auth::id())->get();
+        return $this->responseOk($data);
+    }
 }
