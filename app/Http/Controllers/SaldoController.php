@@ -23,6 +23,7 @@ class SaldoController extends BaseController
         $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
 
         $params = [
+            'user_id' => Auth::id(),
             'nominal' => $request->nominal,
             'pict' => $result,
             'status' => 'Waiting'
