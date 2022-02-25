@@ -33,7 +33,7 @@ class SaldoController extends BaseController
             $response = ['saldo' => $saldo];
             return $this->responseOk($response);
         } else {
-            return $this->responseError('Fill in Balance Error',400);
+            return $this->responseError('Fill in Balance Error', 500);
         }
     }
 
