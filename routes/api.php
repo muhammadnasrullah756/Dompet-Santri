@@ -34,6 +34,8 @@ Route::middleware('auth:sanctum')->get('historydashboard', 'SaldoController@hist
 
 // Tarik dana
 
+Route::middleware('auth:sanctum')->group(function () {
+
 Route::get('ke_tarik_dana',[BalanceController::class,'show_withdrawal']);
 Route::post('tarik_dana',[BalanceController::class,'withdraw']);
 
@@ -52,3 +54,5 @@ Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
 Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
 // Route::post('tambahkan_barang',[]);
+
+});
