@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Saldo;
+use App\User;
 Use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,5 +51,13 @@ class SaldoController extends BaseController
     public function historydashboard() {
         $data = Saldo::where('user_id', Auth::id())->get();
         return $this->responseOk($data);
+    }
+
+    public function transfer(Request $request, $id) {
+        // $data = Saldo::where(Auth::id('balance'))->get();
+        $data = User::find($request->id)->get();
+        return $this->responseOk($data);
+
+
     }
 }
