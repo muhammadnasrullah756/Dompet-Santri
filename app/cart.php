@@ -8,10 +8,10 @@ class cart extends Model
 {
     protected $guarded = [];
 
-    protected $fillable = ['order_id'];
+    protected $fillable = ['order_id','katalog_id','jumlah'];
 
     public function order ()
     {
-        return $this->HasMany(order::class);
+        return $this->belongsTo(order::class);
     }
 }
