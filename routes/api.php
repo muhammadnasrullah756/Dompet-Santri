@@ -23,7 +23,7 @@ Route::post('login', 'UserController@login');
 Route::middleware('auth:sanctum')->post('logout', 'UserController@logout');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-});
+}); 
 
 // Isi Saldo
 
@@ -49,4 +49,3 @@ Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
 Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
 Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
-// Route::post('tambahkan_barang',[]);
