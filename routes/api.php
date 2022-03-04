@@ -29,8 +29,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
 Route::middleware('auth:sanctum')->post('isi', 'SaldoController@addSaldo');
+Route::middleware('auth:sanctum')->get('detail/{id}', 'SaldoController@detail');
+Route::middleware('auth:sanctum')->get('historydashboard', 'SaldoController@historydashboard');
+Route::middleware('auth:sanctum')->get('transfer', 'SaldoController@transfer');
 
 // Tarik dana
+
+Route::middleware('auth:sanctum')->group(function () {
 
 Route::get('ke_tarik_dana',[BalanceController::class,'show_withdrawal']);
 Route::post('tarik_dana',[BalanceController::class,'withdraw']);
@@ -49,3 +54,4 @@ Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
 Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
 Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
+});

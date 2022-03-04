@@ -8,7 +8,7 @@ use App\User;
 class Saldo extends Model
 {
     protected $fillable = [
-        'nominal', 'type_id', 'pict','status'
+        'nominal', 'type_id', 'pict','status','user_id',
     ];
 
     public function user() {

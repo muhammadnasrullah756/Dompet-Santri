@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Saldo;
+use App\User;
 Use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,7 @@ class SaldoController extends BaseController
         $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName());
 
         $params = [
+            'user_id' => Auth::id(),
             'nominal' => $request->nominal,
             'pict' => $result,
             'status' => 'Waiting'
@@ -32,12 +34,30 @@ class SaldoController extends BaseController
             $response = ['saldo' => $saldo];
             return $this->responseOk($response);
         } else {
-            return $this->responseError('Fill in Balance Error,400');
+            return $this->responseError('Fill in Balance Error', 500);
         }
     }
 
     public function showall() {
         $data = Saldo::where('user_id', Auth::id())->get();
         return $this->responseOk($data);
+    }
+
+    public function detail($id) {
+        $data = Saldo::find($id);
+        return $this->responseOk($data);
+    }
+
+    public function historydashboard() {
+        $data = Saldo::where('user_id', Auth::id())->get();
+        return $this->responseOk($data);
+    }
+
+    public function transfer(Request $request, $id) {
+        // $data = Saldo::where(Auth::id('balance'))->get();
+        $data = User::find($request->id)->get();
+        return $this->responseOk($data);
+
+
     }
 }
