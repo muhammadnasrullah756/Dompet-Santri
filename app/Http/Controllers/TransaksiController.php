@@ -13,39 +13,72 @@ use App\Http\Controllers\Controller;
 
 class TransaksiController extends Controller
 {
-    public function tambahkan_barang($id, request $request)
-    {
-        $transaksi = new transaksi;
+    // public function tambahkan_barang($id, request $request)
+    // {
+    //     $transaksi = new transaksi;
 
-        $subtotal =0;
+    //     $subtotal =0;
 
-        foreach ($request->jumlah as $key=>$insert)
-        {
-            $barang = katalog::find($id);
-            $saverecord=[
-                'transaksi_id' => $transaksi->id,
-                'katalog_id' => $barang->id,
-                'jumlah' => $request->jumlah[$key]
-            ];
-            DB::table('orders')->insert($saverecord);
+    //     foreach ($request->jumlah as $key=>$insert)
+    //     {
+    //         $barang = katalog::find($id);
+    //         $saverecord=[
+    //             'transaksi_id' => $transaksi->id,
+    //             'katalog_id' => $barang->id,
+    //             'jumlah' => $request->jumlah[$key]
+    //         ];
+    //         DB::table('orders')->insert($saverecord);
 
-            $subtotal = $subtotal+($barang->harga_barang*$request->jumlah[$key]);
-        }
+    //         $subtotal = $subtotal+($barang->harga_barang*$request->jumlah[$key]);
+    //     }
 
      
-        $transaksi->subtotal = $subtotal;
-        $transaksi->status = 'belum dibayar';
-        $transaksi->save();
-        // $record=[
-        //     'subtotal' => $subtotal,
-        //     'status' => 'belum dibayar'
-        // ];
-        // DB::table('transaksis')->insert($record);
+    //     $transaksi->subtotal = $subtotal;
+    //     $transaksi->status = 'belum dibayar';
+    //     $transaksi->save();
+    //     // $record=[
+    //     //     'subtotal' => $subtotal,
+    //     //     'status' => 'belum dibayar'
+    //     // ];
+    //     // DB::table('transaksis')->insert($record);
         
-        return response()->json([
-            'status' => 'success',
-            'data' =>$transaksi
-        ],200);
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'data' =>$transaksi
+    //     ],200);
+    // }
+
+    public function add_barang ($id)
+    {
+        $barang = katalog::find($id);
+
+        $cart = new cart;
+
+        $cart->katalog_id = $barang;
+        $cart->jumlah = 1;
+
+        return response()->json(['id barang' => $barang],200);
+    }
+
+    public function delete_cart($id)
+    {
+        $cart = cart::destroy($id);
+
+        return response()->json(['status' => 'deleted'], 200);
+    }
+
+    public function tambahkan_barang($id) {
+        $barang = cart::find($id);
+        $barang->jumlah = $barang->jumlah+1;
+
+        return response()->json(['status' => 'barang ditambahkan']);
+    }
+
+    public function kurangi_barang($id){
+        $barang = cart::find($id);
+        $barang->jumlah = $barang->jumlah-1;
+
+        return response()->json(['status' => 'barang dikurangi']);
     }
 
     public function get_transaksi_data(){
