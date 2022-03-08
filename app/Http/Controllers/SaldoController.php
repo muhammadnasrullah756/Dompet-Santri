@@ -60,4 +60,14 @@ class SaldoController extends BaseController
 
 
     }
+
+    public function coba() {
+        $data = Saldo::select("*")
+                            ->where([
+                                ['user_id', Auth::id()],
+                                ['status', "=", "Waiting"]
+                            ])
+                            ->get();
+        dd('$data');
+    }
 }
