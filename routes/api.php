@@ -23,11 +23,11 @@ Route::post('login', 'UserController@login');
 Route::middleware('auth:sanctum')->post('logout', 'UserController@logout');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-}); 
+});
 
 // Isi Saldo
 
-Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
+// Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
 Route::middleware('auth:sanctum')->post('isi', 'SaldoController@addSaldo');
 Route::middleware('auth:sanctum')->get('detail/{id}', 'SaldoController@detail');
 Route::middleware('auth:sanctum')->get('historydashboard', 'SaldoController@historydashboard');
@@ -64,4 +64,7 @@ Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
 Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
 Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
+
+
+Route::post('accept', 'SaldoController@accept');
 });

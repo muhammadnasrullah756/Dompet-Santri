@@ -38,10 +38,10 @@ class SaldoController extends BaseController
         }
     }
 
-    public function showall() {
-        $data = Saldo::where('user_id', Auth::id())->get();
-        return $this->responseOk($data);
-    }
+    // public function showall() {
+    //     $data = Saldo::where('user_id', Auth::id())->get();
+    //     return $this->responseOk($data);
+    // }
 
     public function detail($id) {
         $data = Saldo::find($id);
@@ -70,5 +70,22 @@ class SaldoController extends BaseController
                             ->get();
         return $this->responseOk($data);
         // dd($data);
+    }
+
+    public function accept(Request $request, $id) {
+        Auth::Id();
+        $balance = $request->user('balance');
+
+        $data = Saldo::find($id);
+        $request->status = "Success";
+
+        // if($request->status() == "Success") {
+        //     Saldo::where("id", $id)->update($data);
+        // }
+
+        $balancetotal = $balance + $request->nominal;
+
+        User::where('id', $id)->update($balancetotal);
+        return $this->responseOk($data);
     }
 }
