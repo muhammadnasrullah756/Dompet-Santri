@@ -68,6 +68,7 @@ class SaldoController extends BaseController
                                 ['status', "=", "Waiting"]
                             ])
                             ->get();
+        return $this->responseOk($data);
         // dd($data);
     }
 }
