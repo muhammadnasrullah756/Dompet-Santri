@@ -53,7 +53,7 @@ class SaldoController extends BaseController
         return $this->responseOk($data);
     }
 
-    public function transfer(Request $request, $id) {
+    public function transfer(Request $request) {
         // $data = Saldo::where(Auth::id('balance'))->get();
         $data = User::find($request->id)->get();
         return $this->responseOk($data);
@@ -72,7 +72,7 @@ class SaldoController extends BaseController
         // dd($data);
     }
 
-    public function accept(Request $request, $id) {
+    public function accept($request, $id) {
         Auth::Id();
         $balance = $request->user('balance');
 
