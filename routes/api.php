@@ -57,6 +57,8 @@ Route::put('kurangi_barang/{id}',[TransaksiController::class,'kurangi_barang']);
 
 // Checkout, transaksi
 
+Route::post('ke_checkout',[TransaksiController::class,'ke_checkout']);
+
 Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
 
 

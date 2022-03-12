@@ -81,6 +81,29 @@ class TransaksiController extends Controller
         return response()->json(['status' => 'barang dikurangi']);
     }
 
+    public function show_cart($id){
+        $cart = cart::all();
+
+        return response()->json(['cart'=>$cart]);
+    }
+
+    public function ke_checkout(){
+        $checkout = new transaksi;
+        $checkout->subtotal = 0;
+        $total = $checkout->subtotal;
+        $cart = cart::all();
+        foreach ($cart as $cart){
+            $order = new order;
+            $order->transaksi_id = $checkout->id;
+            $order->katalog_id = $cart->katalog_id;
+            $order->jumlah = $cart->jumlah;
+            $total = $total+($order->katalog->harga_barang*$order->jumlah);
+        }
+        $cart->delete();
+
+        return response()->json(['data'=>$checkout]);
+    }
+
     public function get_transaksi_data(){
         $trasaksi = transaksi::all();
 
