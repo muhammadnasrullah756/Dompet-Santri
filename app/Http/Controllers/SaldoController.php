@@ -109,6 +109,6 @@ class SaldoController extends BaseController
         $data->update([
             'status' => 'Cancelled'
         ]);
-        return $this->responseError('Cancel Submission', 422);
+        return $this->responseOk($data);
     }
 }
