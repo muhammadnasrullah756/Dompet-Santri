@@ -47,7 +47,7 @@ class TransaksiController extends Controller
     //         'data' =>$transaksi
     //     ],200);
     // }
-    
+
     // public function buat_cart()
     // {
     //     $cart = new cart;
@@ -59,10 +59,11 @@ class TransaksiController extends Controller
     {
         $barang = katalog::find($id);
         $cart = new cart;
-        $cart->katalog_id = $barang->$id;
+        $cart->katalog_id = $barang->id;
         $cart->jumlah = 1;
+        $cart->save();
 
-        return response()->json(['id barang' => $barang],200);
+        return response()->json(['barang' => $cart],200);
     }
 
     
