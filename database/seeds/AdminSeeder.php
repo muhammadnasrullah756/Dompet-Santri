@@ -18,14 +18,14 @@ class AdminSeeder extends Seeder
         User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('akmalganteng'),
+            'password' => bcrypt('akmalganteng'),
             'roles' => 'admin'
         ]);
 
         User::create([
             'name' => 'Finance',
             'email' => 'finance@gmail.com',
-            'password' => Hash::make('financetamvan'),
+            'password' => bcrypt('financetamvan'),
             'roles' => 'finance'
         ]);
     }
