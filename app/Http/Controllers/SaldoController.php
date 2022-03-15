@@ -53,7 +53,7 @@ class SaldoController extends BaseController
         $data = Saldo::select("*")
                             ->where([
                                 ['user_id', Auth::id()],
-                                ['status', "=", "Success","Cancelled"]
+                                ['status', "=", "Success" or "Cancelled"]
                             ])
                             ->get();
         return $this->responseOk($data);
