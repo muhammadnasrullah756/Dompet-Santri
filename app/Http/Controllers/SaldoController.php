@@ -27,7 +27,8 @@ class SaldoController extends BaseController
             'user_id' => Auth::id(),
             'nominal' => $request->nominal,
             'pict' => $result,
-            'status' => 'Waiting'
+            'status' => 'Waiting',
+            'type' => 'Isi Saldo'
         ];
 
         if($saldo = Saldo::create($params)) {
@@ -110,5 +111,22 @@ class SaldoController extends BaseController
             'status' => 'Cancelled'
         ]);
         return $this->responseOk($data);
+    }
+
+    public function tarik(Request $request ,$id) {
+        $user = $request->user();
+        $saldo = $user->balance;
+
+        $tarik = $user->balance;
+        $hasil = $saldo-$tarik;
+
+        Saldo::create([
+            'user_id' => Auth::id(),
+            'nominal' => $tarik,
+            'status' => 'Waiting',
+            'type' => 'Tarik Dana'
+        ]);
+
+
     }
 }
