@@ -16,24 +16,31 @@ class KatalogController extends Controller
 
     public function store (request $request)
     {
-        $request->validate([
-            'gambar_barang' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'nama_barang' => 'required|string',
-            'harga_barang' => 'required|string'
-        ]);
+        // $request->validate([
+        //     'gambar_barang' => 'required|mimes:png,jpg,jpeg|max:2048',
+        //     'nama_barang' => 'required|string',
+        //     'harga_barang' => 'required|string'
+        // ]);
 
         $image  = $request->file('gambar_barang');
         $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName()); 
-
+        
+        
         $barang = new katalog;
 
-        $barang->gambar_barang = $result;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->save();
+        $barang->create([
+            'gambar_barang' =>$result,
+            'nama_barang' =>$request->nama_barang,
+            'harga_barang' =>$request->harga_barang,
+        ]);
+
+        // $barang->gambar_barang = $result;
+        // $barang->nama_barang = $request->nama_barang;
+        // $barang->harga_barang = $request->harga_barang;
+        // $barang->save();
         
 
-        return response()->json($barang,200);
+        return response()->json(["nama barang" =>$barang->nama_barang],200);
     }
 
     public function show_one ($id)

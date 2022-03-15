@@ -47,26 +47,24 @@ class TransaksiController extends Controller
     //         'data' =>$transaksi
     //     ],200);
     // }
+    public function buat_cart()
+    {
+        $cart = new Cart();
+
+        return response()->json(['status'=>'Cart sudah dibuat'],200);
+    }
 
     public function add_barang ($id)
     {
         $barang = katalog::find($id);
-
-        $cart = new cart;
-
-        $cart->katalog_id = $barang;
+        $cart = cart::first();
+        $cart->katalog_id = $barang->$id;
         $cart->jumlah = 1;
 
         return response()->json(['id barang' => $barang],200);
     }
 
-    public function delete_cart($id)
-    {
-        $cart = cart::destroy($id);
-
-        return response()->json(['status' => 'deleted'], 200);
-    }
-
+    
     public function tambahkan_barang($id) {
         $barang = cart::find($id);
         $barang->jumlah = $barang->jumlah+1;
@@ -79,6 +77,41 @@ class TransaksiController extends Controller
         $barang->jumlah = $barang->jumlah-1;
 
         return response()->json(['status' => 'barang dikurangi']);
+    }
+    public function delete_barang_cart($id){
+        $barang = cart::where('katalog_id',$id)->delete();
+
+        return response()->json(['status' => 'barang dihapus'],200);
+    }
+
+    public function delete_cart()
+    {
+        $cart = cart::all()->delete();
+        return response()->json(['status' => 'deleted'], 200);
+    }
+
+
+    public function show_cart(){
+        $cart = cart::all();
+
+        return response()->json(['cart'=>$cart]);
+    }
+
+    public function ke_checkout(){
+        $checkout = new transaksi;
+        $checkout->subtotal = 0;
+        $total = $checkout->subtotal;
+        $cart = cart::all();
+        foreach ($cart as $cart){
+            $order = new order;
+            $order->transaksi_id = $checkout->id;
+            $order->katalog_id = $cart->katalog_id;
+            $order->jumlah = $cart->jumlah;
+            $total = $total+($order->katalog->harga_barang*$order->jumlah);
+        }
+        $cart->delete();
+
+        return response()->json(['data'=>$checkout]);
     }
 
     public function get_transaksi_data(){
