@@ -91,7 +91,10 @@ class SaldoController extends BaseController
             $user = $request->user();
             $balance = $user->balance;
             $total = $balance+$nominal;
-            return $this->responseOk($total);
+            $user->update([
+                'balance' => $total
+            ]);
+            return $this->responseOk($user);
         } else {
             return $this->responseError('Cant Add Saldos',422);
         }
