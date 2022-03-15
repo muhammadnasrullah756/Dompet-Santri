@@ -47,17 +47,18 @@ class TransaksiController extends Controller
     //         'data' =>$transaksi
     //     ],200);
     // }
-    public function buat_cart()
-    {
-        $cart = new cart;
+    
+    // public function buat_cart()
+    // {
+    //     $cart = new cart;
 
-        return response()->json(['status'=>'Cart sudah dibuat'],200);
-    }
+    //     return response()->json(['status'=>'Cart sudah dibuat'],200);
+    // }
 
     public function add_barang ($id)
     {
         $barang = katalog::find($id);
-        $cart = cart::first();
+        $cart = new cart;
         $cart->katalog_id = $barang->$id;
         $cart->jumlah = 1;
 
