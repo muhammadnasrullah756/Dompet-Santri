@@ -59,7 +59,7 @@ class TransaksiController extends Controller
     {
         $barang = katalog::find($id);
         $cart = new cart;
-        $cart->katalog_id = $barang->$id;
+        $cart->katalog_id = $barang->id;
         $cart->jumlah = 1;
         $cart->save();
 
