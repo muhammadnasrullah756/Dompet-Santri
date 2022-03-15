@@ -40,7 +40,7 @@ class KatalogController extends Controller
         // $barang->save();
         
 
-        return response()->json(["nama barang" =>$barang->nama_barang],200);
+        return response()->json(["Status" =>"Barang berhasil ditambah"],200);
     }
 
     public function show_one ($id)
