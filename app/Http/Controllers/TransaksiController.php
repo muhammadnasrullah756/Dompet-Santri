@@ -61,6 +61,7 @@ class TransaksiController extends Controller
         $cart = new cart;
         $cart->katalog_id = $barang->$id;
         $cart->jumlah = 1;
+        $cart->save();
 
         return response()->json(['barang' => $cart],200);
     }
