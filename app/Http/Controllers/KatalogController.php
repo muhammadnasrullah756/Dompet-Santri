@@ -33,7 +33,9 @@ class KatalogController extends Controller
         $barang->save();
         
 
-        return response()->json($barang,200);
+        return response()->json(
+        ['nama barang' => $barang->nama_barang,
+        'harga barang'=>$barang->harga_barang],200);
     }
 
     public function show_one ($id)
