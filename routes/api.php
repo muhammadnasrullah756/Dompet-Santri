@@ -70,4 +70,5 @@ Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
 
 Route::post('accept/{id}', 'SaldoController@accept');
+Route::post('cancel/{id}', 'SaldoController@cancel');
 });

@@ -17,7 +17,8 @@ class CreateSaldosTable extends Migration
             $table->id();
             $table->integer('nominal');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->bigInteger('type_id')->nullable();
+            // $table->bigInteger('type_id')->nullable();
+            $table->name('type');
             $table->string('pict');
             $table->enum('status',['Waiting','Success','Cancelled']);
             $table->timestamps();

@@ -105,6 +105,10 @@ class SaldoController extends BaseController
     }
 
     public function cancel($id) {
-
+        $data = Saldo::find($id);
+        $data->update([
+            'status' => 'Cancelled'
+        ]);
+        return $this->responseError('Cancel Submission', 422);
     }
 }
