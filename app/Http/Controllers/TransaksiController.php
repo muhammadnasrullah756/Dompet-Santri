@@ -49,7 +49,7 @@ class TransaksiController extends Controller
     // }
     public function buat_cart()
     {
-        $cart = new Cart();
+        $cart = new Cart;
 
         return response()->json(['status'=>'Cart sudah dibuat'],200);
     }
@@ -94,7 +94,7 @@ class TransaksiController extends Controller
     public function show_cart(){
         $cart = cart::all();
 
-        return response()->json(['cart'=>$cart]);
+        return response()->json($cart,200);
     }
 
     public function ke_checkout(){
