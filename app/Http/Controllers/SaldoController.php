@@ -72,20 +72,28 @@ class SaldoController extends BaseController
         // dd($data);
     }
 
-    public function accept($request, $id) {
-        Auth::Id();
-        $balance = $request->user('balance');
+    public function accept(Request $request, $id) {
+        // Auth::Id();
+        // $balance = $request->user('balance');
 
         $data = Saldo::find($id);
         $request->status = "Success";
+        // $nominal = $request->saldo('nominal');
+        $nominal = $data->nominal;
 
-        // if($request->status() == "Success") {
-        //     Saldo::where("id", $id)->update($data);
-        // }
+        if($request->status() == "Success") {
+            // Saldo::where("id", $id)->update($data);
+            $user = $request->user();
+            $balance = $user->balance;
+            $total = $balance+$nominal;
+            return $this->responseOk($total);
+        } else {
+            return $this->responseError('Cant Add Saldos',422);
+        }
 
-        $balancetotal = $balance + $request->nominal;
+        // $balancetotal = $balance + $request->nominal;
 
-        User::where('id', $id)->update($balancetotal);
-        return $this->responseOk($data);
+        // User::where('id', $id)->update($balancetotal);
+        // return $this->responseOk($data);
     }
 }
