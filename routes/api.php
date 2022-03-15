@@ -51,15 +51,15 @@ Route::delete('delete_barang/{id}',[KatalogController::class,'delete']);
 
 // Cart Section
 Route::post('keranjang/{id}',[TransaksiController::class,'add_barang']);
-Route::delete('hapus_keranjang/{id}',[TransaksiController::class,'delete_cart']);
+Route::delete('hapus_keranjang',[TransaksiController::class,'delete_cart']);
 Route::put('tambah_barang/{id}',[TransaksiController::class,'tambahkan_barang']);
 Route::put('kurangi_barang/{id}',[TransaksiController::class,'kurangi_barang']);
+Route::get('all_keranjang',[TransaksiController::class,'show_cart']);
 
 // Checkout, transaksi
-
 Route::post('ke_checkout',[TransaksiController::class,'ke_checkout']);
 
-Route::post('tambahkan_barang',[TransaksiController::class,'tambahkan_barang']);
+
 
 
 
