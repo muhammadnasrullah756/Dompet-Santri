@@ -113,7 +113,7 @@ class SaldoController extends BaseController
         return $this->responseOk($data);
     }
 
-    public function tarik(Request $request ,$id) {
+    public function tarik(Request $request) {
         $user = $request->user();
         $saldo = $user->balance;
 

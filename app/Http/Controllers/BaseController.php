@@ -50,7 +50,7 @@ class BaseController extends Controller
         }
     }
 
-    public function tarik(Request $request, $id) {
+    public function ambil(Request $request, $id) {
         $data = Saldo::find($id);
         $tarik = $data->nominal;
         $status = $data->status;
