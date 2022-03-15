@@ -69,5 +69,5 @@ Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
 
 
 
-Route::post('accept', 'SaldoController@accept');
+Route::post('accept/{id}', 'SaldoController@accept');
 });
