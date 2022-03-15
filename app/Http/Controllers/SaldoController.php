@@ -49,8 +49,15 @@ class SaldoController extends BaseController
     }
 
     public function historydashboard() {
-        $data = Saldo::where('user_id', Auth::id())->get();
+        // $data = Saldo::where('user_id', Auth::id())->get();
+        $data = Saldo::select("*")
+                            ->where([
+                                ['user_id', Auth::id()],
+                                ['status', "=", "Success","Cancelled"]
+                            ])
+                            ->get();
         return $this->responseOk($data);
+        // return $this->responseOk($data);
     }
 
     public function transfer(Request $request) {
@@ -73,9 +80,6 @@ class SaldoController extends BaseController
     }
 
     public function accept(Request $request, $id) {
-        // Auth::Id();
-        // $balance = $request->user('balance');
-
         $data = Saldo::find($id);
         $data->update([
             'status' => 'Success'
@@ -98,10 +102,9 @@ class SaldoController extends BaseController
         } else {
             return $this->responseError('Cant Add Saldos',422);
         }
+    }
 
-        // $balancetotal = $balance + $request->nominal;
+    public function cancel($id) {
 
-        // User::where('id', $id)->update($balancetotal);
-        // return $this->responseOk($data);
     }
 }
