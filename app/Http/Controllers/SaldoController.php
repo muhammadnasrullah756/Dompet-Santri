@@ -77,7 +77,10 @@ class SaldoController extends BaseController
         // $balance = $request->user('balance');
 
         $data = Saldo::find($id);
-        $request->status = "Success";
+        $data->update([
+            'status' => 'Success'
+        ]);
+        // $request->status = "Success";
         // $nominal = $request->saldo('nominal');
         $nominal = $data->nominal;
 
