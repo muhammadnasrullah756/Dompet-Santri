@@ -27,10 +27,16 @@ class KatalogController extends Controller
 
         $barang = new katalog;
 
-        $barang->gambar_barang = $result;
-        $barang->nama_barang = $request->nama_barang;
-        $barang->harga_barang = $request->harga_barang;
-        $barang->save();
+        $barang->create([
+            'gambar_barang' =>$result,
+            'nama_barang' =>$request->nama_barang,
+            'harga_barang' =>$request->harga_barang,
+        ]);
+
+        // $barang->gambar_barang = $result;
+        // $barang->nama_barang = $request->nama_barang;
+        // $barang->harga_barang = $request->harga_barang;
+        // $barang->save();
         
 
         return response()->json($barang,200);
