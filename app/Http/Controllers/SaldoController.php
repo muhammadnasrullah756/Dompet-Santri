@@ -85,24 +85,24 @@ class SaldoController extends BaseController
         $data->update([
             'status' => 'Success'
         ]);
-        $status = $data->status;
-        // $request->status = "Success";
-        // $nominal = $request->saldo('nominal');
-        $nominal = $data->nominal;
+        $params = $request->saldo;
+        return $this->tambah($params);
+        // $status = $data->status;
+        // $request->status = "Success";        Ga kepakek
+        // $nominal = $request->saldo('nominal');       Ga Kepakek
+        // $nominal = $data->nominal;
 
-        // if($request->status() == "Success") {
-        if($status == "Success") {
-            // Saldo::where("id", $id)->update($data);
-            $user = $request->user();
-            $balance = $user->balance;
-            $total = $balance+$nominal;
-            $user->update([
-                'balance' => $total
-            ]);
-            return $this->responseOk($user);
-        } else {
-            return $this->responseError('Cant Add Saldos',422);
-        }
+        // if($status == "Success") {
+        //     $user = $request->user();
+        //     $balance = $user->balance;
+        //     $total = $balance+$nominal;
+        //     $user->update([
+        //         'balance' => $total
+        //     ]);
+        //     return $this->responseOk($user);
+        // } else {
+        //     return $this->responseError('Cant Add Saldos',422);
+        // }
     }
 
     public function cancel($id) {
@@ -120,12 +120,16 @@ class SaldoController extends BaseController
         $tarik = $user->balance;
         $hasil = $saldo-$tarik;
 
-        Saldo::create([
+        if($data = Saldo::create([
             'user_id' => Auth::id(),
             'nominal' => $tarik,
             'status' => 'Waiting',
             'type' => 'Tarik Dana'
-        ]);
+        ])) {
+            return $this->responseOk($data);
+        } else {
+            return $this->responseError('Cancel Withdraw', 400);
+        }
 
 
     }

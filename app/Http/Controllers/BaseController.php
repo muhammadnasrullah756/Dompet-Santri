@@ -33,7 +33,7 @@ class BaseController extends Controller
     }
 
 
-    public function tambah(Request $request , $id) {
+    public function tambah(Request $request , $id, $result) {
         $data = Saldo::find($id);
         $status = $data->status;
         $nominal = $data->nominal;
