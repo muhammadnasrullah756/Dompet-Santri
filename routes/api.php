@@ -50,6 +50,7 @@ Route::put('edit/{id}',[KatalogController::class,'edit']);
 Route::delete('delete_barang/{id}',[KatalogController::class,'delete']);
 
 // Cart Section
+Route::post('new_cart',[TransaksiController::class,'buat_cart']);
 Route::post('keranjang/{id}',[TransaksiController::class,'add_barang']);
 Route::delete('hapus_keranjang',[TransaksiController::class,'delete_cart']);
 Route::put('tambah_barang/{id}',[TransaksiController::class,'tambahkan_barang']);
