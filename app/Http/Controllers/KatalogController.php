@@ -24,7 +24,8 @@ class KatalogController extends Controller
 
         $image  = $request->file('gambar_barang');
         $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName()); 
-
+        
+        
         $barang = new katalog;
 
         $barang->create([
@@ -39,7 +40,7 @@ class KatalogController extends Controller
         // $barang->save();
         
 
-        return response()->json($barang,200);
+        return response()->json(["nama barang" =>$barang->nama_barang],200);
     }
 
     public function show_one ($id)
