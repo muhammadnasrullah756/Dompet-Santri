@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\katalog;
+use App\Http\Controllers\CloudinaryStorage;
+
 
 class KatalogController extends Controller
 {
