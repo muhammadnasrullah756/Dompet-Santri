@@ -16,11 +16,11 @@ class KatalogController extends Controller
 
     public function store (request $request)
     {
-        $request->validate([
-            'gambar_barang' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'nama_barang' => 'required|string',
-            'harga_barang' => 'required|string'
-        ]);
+        // $request->validate([
+        //     'gambar_barang' => 'required|mimes:png,jpg,jpeg|max:2048',
+        //     'nama_barang' => 'required|string',
+        //     'harga_barang' => 'required|string'
+        // ]);
 
         $image  = $request->file('gambar_barang');
         $result = CloudinaryStorage::upload($image->getRealPath(), $image->getClientOriginalName()); 
