@@ -84,9 +84,10 @@ class TransaksiController extends Controller
         return response()->json(['status' => 'barang dikurangi']);
     }
     public function delete_barang_cart($id){
-        $barang = cart::where('katalog_id',$id)->delete();
+        $barang = cart::where('katalog_id',$id);
+        $barang->delete();
 
-        return response()->json(['status' => 'barang dihapus'],200);
+        return response()->json(['status' => 'barang dihapus dari keranjang'],200);
     }
 
     public function delete_cart()
@@ -113,7 +114,9 @@ class TransaksiController extends Controller
             $order->katalog_id = $cart->katalog_id;
             $order->jumlah = $cart->jumlah;
             $total = $total+($order->katalog->harga_barang*$order->jumlah);
+            $order->save();
         }
+        $checkout->save();
         $cart->delete();
 
         return response()->json(['data'=>$checkout]);
