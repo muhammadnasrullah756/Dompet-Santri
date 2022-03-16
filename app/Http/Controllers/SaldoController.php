@@ -54,7 +54,7 @@ class SaldoController extends BaseController
         $data = Saldo::select("*")
                             ->where([
                                 ['user_id', Auth::id()],
-                                ['status', "=", "Success"]
+                                ['status', "!=", "Waiting"]
                             ])
                             ->get();
         return $this->responseOk($data);
@@ -62,9 +62,33 @@ class SaldoController extends BaseController
     }
 
     public function transfer(Request $request) {
-        // $data = Saldo::where(Auth::id('balance'))->get();
-        $data = User::find($request->id)->get();
-        return $this->responseOk($data);
+        // $data = User::find($request->id)->get();
+        // return $this->responseOk($data);
+        $validator = Validator::make($request->all(),[
+            'target' => 'required|integer',
+            'nominal' => 'required|integer',
+        ]);
+
+        if($validator->fails()) {
+            return $this->responseError('Please Fill All Required Fields', 422, $validator->errors());
+        }
+
+        $params = [
+            'user_id' => Auth::Id(),
+            'type' => 'Transfer Dana',
+            'nominal' => $request->nominal,
+            'status' => 'Waiting',
+        ];
+
+        if($saldo = Saldo::create($params)) {
+            $response = [
+                'saldo' => $saldo,
+                'target' => $request->target,
+            ];
+            return $this->response($response, 200);
+        } else {
+            return $this->responseError('Cant Add Transfer Request', 400);
+        }
 
 
     }
