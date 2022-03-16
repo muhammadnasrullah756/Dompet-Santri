@@ -68,15 +68,18 @@ class TransaksiController extends Controller
 
     
     public function tambahkan_barang($id) {
-        $barang = cart::find($id);
+        
+        $barang = cart::where('katalog_id',$id)->first();
         $barang->jumlah = $barang->jumlah+1;
+        $barang->save();
 
         return response()->json(['status' => 'barang ditambahkan']);
     }
 
     public function kurangi_barang($id){
-        $barang = cart::find($id);
+        $barang = cart::where('katalog_id',$id)->first();
         $barang->jumlah = $barang->jumlah-1;
+        $barang->save();
 
         return response()->json(['status' => 'barang dikurangi']);
     }
