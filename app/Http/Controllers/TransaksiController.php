@@ -120,7 +120,7 @@ class TransaksiController extends Controller
         $checkout->save();
         $cart->delete();
 
-        return response()->json(['data'=>$checkout]);
+        return response()->json([$checkout]);
     }
 
     public function get_transaksi_data(){
