@@ -112,8 +112,12 @@ class TransaksiController extends Controller
             $order = new order;
             $order->transaksi_id = $checkout->id;
             $order->katalog_id = $cart->katalog_id;
+            $id_barang = $order->katalog_id;
             $order->jumlah = $cart->jumlah;
-            $total = $total+($order->katalog->harga_barang*$order->jumlah);
+            $jumlah_barang = $order->jumlah;
+            $harga = katalog::where('id',$id_barang)->first();
+            $harga_barang = $harga->harga_barang;
+            $total = $total+($harga_barang*$jumlah_barang);
             $checkout->subtotal = $total;
             $order->save();
         }
