@@ -82,36 +82,62 @@ class SaldoController extends BaseController
 
     public function accept(Request $request, $id) {
         $data = Saldo::find($id);
-        $data->update([
-            'status' => 'Success'
-        ]);
-        $params = $request->saldo;
-        return $this->tambah($params);
+        // $data->update([
+        //     'status' => 'Success'
+        // ]);
+        $type = $data->type;
+        $nominal = $data->nominal;
+
+        if($type == "Isi Saldo") {
+            $user = $request->user();
+            $balance = $user->balance;
+            $total = $balance+$nominal;
+            $user->update([
+                'balance' => $total,
+                'status' => 'Success',
+            ]);
+            return $this->responseOk($user);
+        } else {
+            return $this->responseError('Cant Add Balance', 400);
+        }
+
+        if($type == "Tarik Dana") {
+            $user = $request->user();
+            $balance = $user->balance;
+            $hasil = $balance-$nominal;
+            $user->update([
+                'balance' => $hasil,
+                'status' => 'Success'
+            ]);
+            return $this->responseOk($user);
+        } else {
+            return $this->responseError('Cant Withdraw Balance', 400);
+        }
+
+
+
         // $status = $data->status;
-        // $request->status = "Success";        Ga kepakek
-        // $nominal = $request->saldo('nominal');       Ga Kepakek
-        // $nominal = $data->nominal;
 
         // if($status == "Success") {
-        //     $user = $request->user();
-        //     $balance = $user->balance;
-        //     $total = $balance+$nominal;
-        //     $user->update([
-        //         'balance' => $total
-        //     ]);
-        //     return $this->responseOk($user);
-        // } else {
-        //     return $this->responseError('Cant Add Saldos',422);
-        // }
-    }
+            //     $user = $request->user();
+            //     $balance = $user->balance;
+            //     $total = $balance+$nominal;
+            //     $user->update([
+            //         'balance' => $total
+            //     ]);
+            //     return $this->responseOk($user);
+            // } else {
+            //     return $this->responseError('Cant Add Saldos',422);
+            // }
+        }
 
     public function cancel($id) {
         $data = Saldo::find($id);
         $data->update([
             'status' => 'Cancelled'
         ]);
-        return $this->responseOk($data);
-    }
+            return $this->responseOk($data);
+        }
 
     public function tarik(Request $request) {
         $user = $request->user();
@@ -125,12 +151,15 @@ class SaldoController extends BaseController
             'nominal' => $tarik,
             'status' => 'Waiting',
             'type' => 'Tarik Dana'
-        ])) {
-            return $this->responseOk($data);
-        } else {
-            return $this->responseError('Cancel Withdraw', 400);
+            ])) {
+                return $this->responseOk($data);
+            } else {
+                return $this->responseError('Cancel Withdraw', 400);
+                }
+
+
         }
-
-
     }
-}
+
+                // $request->status = "Success";        Ga kepakek
+                // $nominal = $request->saldo('nominal');       Ga Kepakek
