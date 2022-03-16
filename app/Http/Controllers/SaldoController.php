@@ -85,7 +85,7 @@ class SaldoController extends BaseController
                 'saldo' => $saldo,
                 'target' => $request->target,
             ];
-            return $this->response($response, 200);
+            return $this->responseOk($response, 200);
         } else {
             return $this->responseError('Cant Add Transfer Request', 400);
         }
