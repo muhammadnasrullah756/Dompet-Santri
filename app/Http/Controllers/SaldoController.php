@@ -100,22 +100,33 @@ class SaldoController extends BaseController
                 'status' => 'Success'
             ]);
             return $this->responseOk($user);
-        } else {
-            return $this->responseError('Cant Add Balance', 400);
-        }
-
-        if($type == "Tarik Dana") {
+        } elseif($type == "Tarik Dana") {
             $user = $request->user();
             $balance = $user->balance;
             $hasil = $balance-$nominal;
             $user->update([
-                'balance' => $hasil,
+                'balance' => $hasil
+            ]);
+            $data->update([
                 'status' => 'Success'
             ]);
             return $this->responseOk($user);
         } else {
-            return $this->responseError('Cant Withdraw Balance', 400);
+            return $this->responseError('Error while Processing Transaction');
         }
+
+        // if($type == "Tarik Dana") {
+        //     $user = $request->user();
+        //     $balance = $user->balance;
+        //     $hasil = $balance-$nominal;
+        //     $user->update([
+        //         'balance' => $hasil,
+        //         'status' => 'Success'
+        //     ]);
+        //     return $this->responseOk($user);
+        // } else {
+        //     return $this->responseError('Cant Withdraw Balance', 400);
+        // }
 
 
 
