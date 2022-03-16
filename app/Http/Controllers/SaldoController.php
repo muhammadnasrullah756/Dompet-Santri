@@ -96,6 +96,9 @@ class SaldoController extends BaseController
                 'balance' => $total,
                 'status' => 'Success',
             ]);
+            $data->update([
+                'status' => 'Success'
+            ]);
             return $this->responseOk($user);
         } else {
             return $this->responseError('Cant Add Balance', 400);
