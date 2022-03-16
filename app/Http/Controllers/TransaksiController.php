@@ -114,6 +114,7 @@ class TransaksiController extends Controller
             $order->katalog_id = $cart->katalog_id;
             $order->jumlah = $cart->jumlah;
             $total = $total+($order->katalog->harga_barang*$order->jumlah);
+            $checkout->subtotal = $total;
             $order->save();
         }
         $checkout->save();
