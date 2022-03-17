@@ -141,4 +141,14 @@ class TransaksiController extends Controller
 
         return response()->json(['data' => $data],200);
     }
+
+    public function delete_transaksi($id)
+    {
+        $data = transaksi::find($id);
+        $data->delete();
+
+        return response()->json(
+            [   'id' => $id,
+                'status' => 'transaksi telah dihapus'],200);
+    }
 }
