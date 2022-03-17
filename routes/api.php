@@ -61,13 +61,9 @@ Route::get('all_keranjang',[TransaksiController::class,'show_cart']);
 // Checkout, transaksi
 Route::post('ke_checkout',[TransaksiController::class,'ke_checkout']);
 
-
-
-
-
 Route::get('data_transaksi',[TransaksiController::class,'get_transaksi_data']);
 Route::get('show_transaksi/{id}',[TransaksiController::class,'show_transaksi']);
-
+Route::delete('delete_transaksi/{id}',[TransaksiController::class,'delete_transaksi']);
 
 
 Route::post('accept/{id}', 'SaldoController@accept');
