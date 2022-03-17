@@ -78,12 +78,13 @@ class SaldoController extends BaseController
             'type' => 'Transfer Dana',
             'nominal' => $request->nominal,
             'status' => 'Waiting',
+            'target' => $request->target,
         ];
 
         if($saldo = Saldo::create($params)) {
             $response = [
                 'saldo' => $saldo,
-                'target' => $request->target,
+                // 'target' => $request->target,
             ];
             return $this->responseOk($response, 200);
         } else {
