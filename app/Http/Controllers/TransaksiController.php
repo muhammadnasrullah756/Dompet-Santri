@@ -106,6 +106,7 @@ class TransaksiController extends Controller
     public function ke_checkout(){
         $checkout = new transaksi;
         $checkout->subtotal = 0;
+        $checkout->status = 'belum dibayar';
         $total = $checkout->subtotal;
         $cart = cart::all();
         foreach ($cart as $cart){
@@ -121,6 +122,7 @@ class TransaksiController extends Controller
             $checkout->subtotal = $total;
             $order->save();
         }
+        
         $checkout->save();
         $cart->delete();
 
