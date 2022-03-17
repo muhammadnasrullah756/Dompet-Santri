@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Isi Saldo
 
-// Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
+Route::middleware('auth:sanctum')->get('pengajuan', 'SaldoController@showall');
 Route::middleware('auth:sanctum')->post('isi', 'SaldoController@addSaldo');
 Route::middleware('auth:sanctum')->get('detail/{id}', 'SaldoController@detail');
 Route::middleware('auth:sanctum')->get('historydashboard', 'SaldoController@historydashboard');

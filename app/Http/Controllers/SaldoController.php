@@ -39,10 +39,10 @@ class SaldoController extends BaseController
         }
     }
 
-    // public function showall() {
-    //     $data = Saldo::where('user_id', Auth::id())->get();
-    //     return $this->responseOk($data);
-    // }
+    public function showall() {
+        $data = Saldo::where('user_id', Auth::id())->get();
+        return $this->responseOk($data);
+    }
 
     public function detail($id) {
         $data = Saldo::find($id);
@@ -198,7 +198,21 @@ class SaldoController extends BaseController
 
 
         }
+
+        public function transferdana(Request $request, $id) {
+            $data = Saldo::find($id);
+            $target = $data->target;
+
+            $penerima = User::find($target);
+
+            $user = $request->user();
+            $dana_awal = $user->balance;
+        }
+
+
     }
 
                 // $request->status = "Success";        Ga kepakek
                 // $nominal = $request->saldo('nominal');       Ga Kepakek
+
+
