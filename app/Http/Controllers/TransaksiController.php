@@ -121,6 +121,7 @@ class TransaksiController extends Controller
             $checkout->subtotal = $total;
             $order->save();
         }
+        $checkout->status = 'belum dibayar';
         $checkout->save();
         $cart->delete();
 

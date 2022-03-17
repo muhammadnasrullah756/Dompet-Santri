@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('transakasi_id')->nullable();
+            $table->bigInteger('transaksi_id')->nullable();
             $table->bigInteger('katalog_id');
             $table->integer('jumlah')->nullable();
             $table->timestamps();
