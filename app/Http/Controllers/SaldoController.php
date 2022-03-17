@@ -202,11 +202,34 @@ class SaldoController extends BaseController
         public function transferdana(Request $request, $id) {
             $data = Saldo::find($id);
             $target = $data->target;
+            $nominal_transfer = $data->nominal;
+
 
             $penerima = User::find($target);
+            $dana_awal_penerima = $penerima->balance;
+
 
             $user = $request->user();
-            $dana_awal = $user->balance;
+            $dana_awal_pengirim = $user->balance;
+
+            $dana_akhir = $dana_awal_pengirim-$nominal_transfer;
+
+            $user->update([
+                'balance' => $dana_akhir,
+            ]);
+
+            $dana_penerima = $dana_awal_penerima+$nominal_transfer;
+
+            $penerima->update([
+                'balance' => $dana_penerima
+            ]);
+
+            // $data->update([
+            //     'status' => 'Success'
+            // ]);
+
+
+
         }
 
 
