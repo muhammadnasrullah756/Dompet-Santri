@@ -138,8 +138,11 @@ class TransaksiController extends Controller
     public function show_transaksi($id)
     {
         $data = transaksi::find($id);
+        $order = order::where('transaksi_id',$id)->get();
 
-        return response()->json(['data' => $data],200);
+        return response()->json(
+            ['data transaksi' => $data,
+            'data barang' => $order],200);
     }
 
     public function delete_transaksi($id)
@@ -150,5 +153,11 @@ class TransaksiController extends Controller
         return response()->json(
             [   'id' => $id,
                 'status' => 'transaksi telah dihapus'],200);
+    }
+
+    public function data_order(){
+        $data = order::all();
+
+        return response()->json(['data' =>$data],200);
     }
 }
