@@ -129,12 +129,16 @@ class SaldoController extends BaseController
             $user = $request->user();
             $balance = $user->balance;
             $hasil = $balance-$nominal;
+                if($balance < $nominal) {
+                    return $this->responseError('Ur Balance isnt Enough', 400);
+            } else {
             $user->update([
                 'balance' => $hasil
             ]);
             $data->update([
                 'status' => 'Success'
             ]);
+        }
             return $this->responseOk($user);
         } else {
             return $this->responseError('Error while Processing Transaction');
