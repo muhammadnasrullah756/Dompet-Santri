@@ -129,45 +129,50 @@ class SaldoController extends BaseController
             $user = $request->user();
             $balance = $user->balance;
             $hasil = $balance-$nominal;
+                if($balance < $nominal) {
+                    return $this->responseError('Ur Balance isnt Enough', 400);
+            } else {
             $user->update([
                 'balance' => $hasil
             ]);
             $data->update([
                 'status' => 'Success'
             ]);
+        }
             return $this->responseOk($user);
+        } elseif($type == "Transfer Dana") {
+            $target = $data->target;
+            $nominal_transfer = $data->nominal;
+            $penerima = User::find($target);
+            $dana_awal_penerima = $penerima->balance;
+
+            $user = $request->user();
+            $dana_awal_pengirim = $user->balance;
+
+            $dana_akhir_pengirim = $dana_awal_pengirim - $nominal_transfer;
+
+            if($dana_awal_pengirim < $nominal_transfer) {
+                return $this->responseError('Ur Balance isnt Enough');
+            } else {
+                $user->update([
+                    'balance' => $dana_akhir_pengirim,
+                ]);
+
+            $dana_akhir_penerima = $dana_awal_penerima + $nominal_transfer;
+
+            $penerima->update([
+                'balance' => $dana_akhir_penerima
+            ]);
+            $data->update([
+                'status' => 'Success'
+            ]);
+
+            }
+            return $this->responseOk($data);
         } else {
             return $this->responseError('Error while Processing Transaction');
         }
 
-        // if($type == "Tarik Dana") {
-        //     $user = $request->user();
-        //     $balance = $user->balance;
-        //     $hasil = $balance-$nominal;
-        //     $user->update([
-        //         'balance' => $hasil,
-        //         'status' => 'Success'
-        //     ]);
-        //     return $this->responseOk($user);
-        // } else {
-        //     return $this->responseError('Cant Withdraw Balance', 400);
-        // }
-
-
-
-        // $status = $data->status;
-
-        // if($status == "Success") {
-            //     $user = $request->user();
-            //     $balance = $user->balance;
-            //     $total = $balance+$nominal;
-            //     $user->update([
-            //         'balance' => $total
-            //     ]);
-            //     return $this->responseOk($user);
-            // } else {
-            //     return $this->responseError('Cant Add Saldos',422);
-            // }
         }
 
     public function cancel($id) {
@@ -202,11 +207,34 @@ class SaldoController extends BaseController
         public function transferdana(Request $request, $id) {
             $data = Saldo::find($id);
             $target = $data->target;
+            $nominal_transfer = $data->nominal;
+
 
             $penerima = User::find($target);
+            $dana_awal_penerima = $penerima->balance;
+
 
             $user = $request->user();
-            $dana_awal = $user->balance;
+            $dana_awal_pengirim = $user->balance;
+
+            $dana_akhir = $dana_awal_pengirim-$nominal_transfer;
+
+            $user->update([
+                'balance' => $dana_akhir,
+            ]);
+
+            $dana_penerima = $dana_awal_penerima+$nominal_transfer;
+
+            $penerima->update([
+                'balance' => $dana_penerima
+            ]);
+
+            // $data->update([
+            //     'status' => 'Success'
+            // ]);
+
+
+
         }
 
 
