@@ -92,8 +92,8 @@ class TransaksiController extends Controller
 
     public function delete_cart()
     {
-        $cart = cart::all();
-        $cart->delete();
+        $cart = cart::truncate();
+       
         return response()->json(['status' => 'deleted'], 200);
     }
 
