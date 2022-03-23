@@ -106,17 +106,19 @@ class TransaksiController extends Controller
 
     public function ke_checkout(){
         $checkout = new transaksi;
-        $id_transaksi = $checkout->id;
+        
         $checkout->subtotal = 0;
         $checkout->status = 'belum dibayar';
         $total = $checkout->subtotal;
         $cart = cart::all();
         foreach ($cart as $cart){
             $order = new order;
+            $id_transaksi = transaksi::latest()->first();
             $order->transaksi_id = $id_transaksi;
             $order->katalog_id = $cart->katalog_id;
             $id_barang = $order->katalog_id;
             $order->jumlah = $cart->jumlah;
+            
             $jumlah_barang = $order->jumlah;
             $harga = katalog::where('id',$id_barang)->first();
             $harga_barang = $harga->harga_barang;
