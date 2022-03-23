@@ -15,7 +15,7 @@ class order extends Model
 
     public function transaksi()
     {
-        return $this->BelongsTo(transaksi::class);
+        return $this->belongsTo(transaksi::class);
     }
 
     public function katalog ()

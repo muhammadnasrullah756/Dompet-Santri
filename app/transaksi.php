@@ -13,6 +13,6 @@ class transaksi extends Model
 
     public function order ()
     {
-        return $this->HasMany(order::class);
+        return $this->hasMany(order::class);
     }
 }
