@@ -109,6 +109,7 @@ class TransaksiController extends Controller
         $id_transaksi = $checkout->id;
         $checkout->subtotal = 0;
         $checkout->status = 'belum dibayar';
+        $checkout->save();
         $total = $checkout->subtotal;
         $cart = cart::all();
         foreach ($cart as $cart){
