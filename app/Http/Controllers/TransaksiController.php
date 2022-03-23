@@ -110,6 +110,7 @@ class TransaksiController extends Controller
         $checkout->subtotal = 0;
         $checkout->status = 'belum dibayar';
         $total = $checkout->subtotal;
+        $checkout->save();
         $cart = cart::all();
         foreach ($cart as $cart){
             $order = new order;
@@ -127,7 +128,7 @@ class TransaksiController extends Controller
             $order->save();
         }
         
-        $checkout->save();
+        $checkout->update();
         $cart->delete();
 
         return response()->json([$checkout]);
