@@ -114,7 +114,7 @@ class TransaksiController extends Controller
         $cart = cart::all();
         foreach ($cart as $cart){
             $order = new order;
-            $id_transaksi = transaksi::latest()->first();
+            $id_transaksi = transaksi::latest()->first()->id;
             $order->transaksi_id = $id_transaksi;
             $order->katalog_id = $cart->katalog_id;
             $id_barang = $order->katalog_id;
