@@ -241,6 +241,6 @@ class SaldoController extends BaseController
     }
 
                 // $request->status = "Success";        Ga kepakek
-                // $nominal = $request->saldo('nominal');       Ga Kepakek
+                // $nominal = $request->saldo('nominal');       Ga Kepakeka
 
 
