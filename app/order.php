@@ -11,11 +11,11 @@ class order extends Model
 {
     protected $guarded = [];
 
-    protected $fillable = ['transakasi_id','katalog_id','jumlah'];
+    protected $fillable = ['transaksi_id','katalog_id','jumlah'];
 
     public function transaksi()
     {
-        return $this->BelongsTo(transaksi::class);
+        return $this->belongsTo(transaksi::class);
     }
 
     public function katalog ()

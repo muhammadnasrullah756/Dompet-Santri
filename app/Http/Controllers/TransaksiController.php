@@ -92,7 +92,8 @@ class TransaksiController extends Controller
 
     public function delete_cart()
     {
-        $cart = cart::all()->delete();
+        $cart = cart::truncate();
+       
         return response()->json(['status' => 'deleted'], 200);
     }
 
@@ -105,16 +106,20 @@ class TransaksiController extends Controller
 
     public function ke_checkout(){
         $checkout = new transaksi;
+        
         $checkout->subtotal = 0;
         $checkout->status = 'belum dibayar';
         $total = $checkout->subtotal;
+        $checkout->save();
         $cart = cart::all();
         foreach ($cart as $cart){
             $order = new order;
-            $order->transaksi_id = $checkout->id;
+            $id_transaksi = transaksi::latest()->first()->id;
+            $order->transaksi_id = $id_transaksi;
             $order->katalog_id = $cart->katalog_id;
             $id_barang = $order->katalog_id;
             $order->jumlah = $cart->jumlah;
+            
             $jumlah_barang = $order->jumlah;
             $harga = katalog::where('id',$id_barang)->first();
             $harga_barang = $harga->harga_barang;
@@ -123,7 +128,7 @@ class TransaksiController extends Controller
             $order->save();
         }
         
-        $checkout->save();
+        $checkout->update();
         $cart->delete();
 
         return response()->json([$checkout]);
@@ -138,8 +143,11 @@ class TransaksiController extends Controller
     public function show_transaksi($id)
     {
         $data = transaksi::find($id);
+        $order = order::where('transaksi_id',$id)->get();
 
-        return response()->json(['data' => $data],200);
+        return response()->json(
+            ['data transaksi' => $data,
+            'data barang' => $order],200);
     }
 
     public function delete_transaksi($id)
@@ -150,5 +158,11 @@ class TransaksiController extends Controller
         return response()->json(
             [   'id' => $id,
                 'status' => 'transaksi telah dihapus'],200);
+    }
+
+    public function data_order(){
+        $data = order::all();
+
+        return response()->json(['data' =>$data],200);
     }
 }
